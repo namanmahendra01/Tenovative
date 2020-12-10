@@ -48,7 +48,7 @@ public class upload extends AppCompatActivity {
     private static final String TAG ="upload" ;
     boolean isKitKat;
     private int imageCount;
-
+    String key="";
     private Button selectBtn;
     private TextView postImageBtn,bottom_post;
     private EditText caption;
@@ -119,9 +119,11 @@ public class upload extends AppCompatActivity {
     }
     @SuppressLint("DefaultLocale")
     private void uploadNewPhoto(String caption, String imgURL) {
+        DatabaseReference ref=FirebaseDatabase.getInstance().getReference();
+        key=ref.push().getKey();
         FilePaths filepaths = new FilePaths();
         String user_id = "1234";
-        final StorageReference storageReference = FirebaseStorage.getInstance().getReference().child(filepaths.FIREBASE_IMAGE_STORAGE + "/" + user_id + "/post" + (imageCount + 1));
+        final StorageReference storageReference = FirebaseStorage.getInstance().getReference().child(filepaths.FIREBASE_IMAGE_STORAGE + "/" + user_id + "/post" + key);
         String imgUrl2 = mFirebaseMethods.compressImage(imgURL);
         Bitmap bm = ImageManager.getBitmap(imgUrl2);
         byte[] bytes;
@@ -150,7 +152,6 @@ public class upload extends AppCompatActivity {
     private void addPhotoToDatabase(String caption, String url) {
 
         DatabaseReference ref=FirebaseDatabase.getInstance().getReference();
-        String key=ref.push().getKey();
 
         HashMap<String,Object> hashMap=new HashMap<>();
         hashMap.put("imgUrl",url);
