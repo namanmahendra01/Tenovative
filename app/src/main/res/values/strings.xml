@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Teno</string>
+    <string name="dbname_post">Post</string>
+    <string name="field_user">user_1</string>
+    <string name="field_like">like</string>
+    <string name="caption">cap</string>
+    <string name="dbname_Verification">Verification</string>
+</resources>
